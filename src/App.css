@@ -1,0 +1,28 @@
+.App {
+  background-color: #202123;
+  height: 100vh;
+  color: #d7d7d7;
+}
+.selected-day {
+  background-color: rgb(177 177 177 / 12%);
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.hover:hover {
+  cursor: pointer;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
