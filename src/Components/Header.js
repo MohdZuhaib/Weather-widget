@@ -1,26 +1,30 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Sunny from "../Assets/sunny.png";
 import { Box, Typography, Divider } from "@mui/material";
-import { SetUnit } from "../Redux/actions";
-import { store } from "../Redux/store";
+import { SetUnit, SetdisplayTemp } from "../Redux/actions";
+import { unitState, currentDaySelector, displayTempSelector } from "../Redux/selectors";
 
 const Header = () => {
-  const listState = (state) => state;
-  const currentUnit = useSelector(listState);
-  // const convertTemp = (unit) => {
-  //   const currentTemp = currentUnit.currentTemp;
+  const dispatch = useDispatch()
+  const statetUnit = useSelector(unitState);
+  const currentDay = useSelector(currentDaySelector);
+  const displayTemp = parseInt(useSelector(displayTempSelector));
+  console.log('state Unit', statetUnit)
 
-  //   if (unit === "C" && currentUnit.unit === "F") {
-  //     const C = Math.floor((5 / 9) * (currentUnit.temp - 32));
-  //     setCurrentUnit({ ...currentUnit, unit: "C", temp: C });
-  //   } else if (unit === "F" && currentUnit.unit === "C") {
-  //     const F = Math.floor((currentTemp * 9) / 5 + 32);
-  //     setCurrentUnit({ ...currentUnit, unit: "F", temp: F });
-  //   } else return;
-  // };
+  const convertTemp = (unit) => {
+    const currentTemp = parseInt(displayTemp);
 
-  const setUni = (unit) => store.dispatch(SetUnit(unit));
+    if (unit === "C" && statetUnit === "F") {
+      const C = parseInt(Math.floor((5 / 9) * (currentTemp - 32)));
+      dispatch(SetUnit(unit));
+      dispatch(SetdisplayTemp(C))
+    } else if (unit === "F" && statetUnit === "C") {
+      const F = parseInt(Math.floor((currentTemp * 9) / 5 + 32));
+      dispatch(SetUnit(unit));
+      dispatch(SetdisplayTemp(F))
+    } else return;
+  };
   return (
     <Box display="flex" p={2}>
       <Box
@@ -30,13 +34,13 @@ const Header = () => {
         width="72px"
         height="72px"
       />
-      <Typography variant="h2"> {currentUnit.temp}</Typography>
+      <Typography variant="h2"> {displayTemp}</Typography>
       <Box display="flex" alignItems="center" height={23} ml={1} mr={3}>
         <Typography
           className="hover"
           variant="h6"
-          onClick={() => setUni("C")}
-          color={currentUnit.unit === "C" ? "#fff" : "#a9abad"}
+          onClick={() => convertTemp("C")}
+          color={statetUnit === "C" ? "#fff" : "#a9abad"}
         >
           &#176;C
         </Typography>
@@ -49,20 +53,20 @@ const Header = () => {
         <Typography
           className="hover"
           variant="h6"
-          onClick={() => setUni("F")}
-          color={currentUnit.unit === "F" ? "#fff" : "#a9abad"}
+          onClick={() => convertTemp("F")}
+          color={statetUnit === "F" ? "#fff" : "#a9abad"}
         >
           &#176;F
         </Typography>
       </Box>
       <Box>
         <Typography variant="body1">
-          Precipitation : {currentUnit?.precipitation}%
+          Precipitation : {currentDay?.precip}%
         </Typography>
         <Typography variant="body1">
-          Humidity : {currentUnit?.humidity}%
+          Humidity : {currentDay?.rh}%
         </Typography>
-        <Typography variant="body1">Wind : {currentUnit?.wind}Km/h</Typography>
+        <Typography variant="body1">Wind : {currentDay?.wind_gust_spd}Km/h</Typography>
       </Box>
     </Box>
   );

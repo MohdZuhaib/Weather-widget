@@ -5,7 +5,7 @@ import { createReduxHistoryContext } from "redux-first-history";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createBrowserHistory } from "history";
 
-import { tempReducer, currentDay, currentUnit } from "./reducer";
+import { tempReducer, currentDay, currentUnit, displayTemp } from "./reducer";
 
 export const { createReduxHistory, routerMiddleware, routerReducer } =
   createReduxHistoryContext({
@@ -23,6 +23,7 @@ export const store = createStore(
     tempReducer,
     currentDay,
     currentUnit,
+    displayTemp
   }),
   composeEnhancers(applyMiddleware(...middlewares))
 );

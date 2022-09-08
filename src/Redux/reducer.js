@@ -1,19 +1,14 @@
-const initialState = [
-  {
-    list: [],
-    day: "Monday",
-    unit: "C",
-  },
-];
-
-// const  = {
-//     weather: 'testReducer'
-// };
+const initialState = {
+  list: [],
+  day: {},
+  unit: "C",
+  loading: true
+}
 
 export const tempReducer = (state = initialState, { type, list } = {}) => {
   console.log("payload list", list);
   switch (type) {
-    case "GET_WEATHER":
+    case "SET_WEATHER":
       return {
         // ...state,
         list,
@@ -30,6 +25,7 @@ export const currentDay = (state = initialState, { type, day } = {}) => {
       return {
         // ...state,
         day,
+
       };
 
     default:
@@ -43,6 +39,32 @@ export const currentUnit = (state = initialState, { type, unit } = {}) => {
       return {
         // ...state,
         unit: unit,
+      };
+
+    default:
+      return state;
+  }
+};
+export const displayTemp = (state = initialState, { type, displayTemp } = {}) => {
+  console.log("payload");
+  switch (type) {
+    case "SET_DISPLAY_TEMPERATURE":
+      return {
+        // ...state,
+        displayTemp,
+      };
+
+    default:
+      return state;
+  }
+};
+export const setLoading = (state = initialState, { type, loading } = {}) => {
+  console.log("payload");
+  switch (type) {
+    case "SET_DISPLAY_TEMPERATURE":
+      return {
+        // ...state,
+        loading,
       };
 
     default:
