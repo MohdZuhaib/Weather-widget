@@ -10,7 +10,9 @@ const Header = () => {
   const statetUnit = useSelector(unitState);
   const currentDay = useSelector(currentDaySelector);
   const displayTemp = parseInt(useSelector(displayTempSelector));
-  console.log('state Unit', statetUnit)
+  console.log('state Unit', statetUnit);
+
+ 
 
   const convertTemp = (unit) => {
     const currentTemp = parseInt(displayTemp);
@@ -61,7 +63,7 @@ const Header = () => {
       </Box>
       <Box>
         <Typography variant="body1">
-          Precipitation : {(currentDay?.precip).toFixed(2)}%
+          Precipitation : {currentDay?.precip}%
         </Typography>
         <Typography variant="body1">
           Humidity : {currentDay?.rh}%
