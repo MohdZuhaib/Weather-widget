@@ -61,7 +61,7 @@ const Header = () => {
       </Box>
       <Box>
         <Typography variant="body1">
-          Precipitation : {currentDay?.precip}%
+          Precipitation : {(currentDay?.precip).toFixed(2)}%
         </Typography>
         <Typography variant="body1">
           Humidity : {currentDay?.rh}%
